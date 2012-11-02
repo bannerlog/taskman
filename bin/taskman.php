@@ -56,7 +56,9 @@ try {
             }
             break;
         default:
-            Taskman\Manager::getInstance()->invoke($argv[1]);
+            Taskman\Manager::getInstance()->invoke(
+                empty($argv[1]) ? 'default' : $argv[1]
+            );
     }
 } catch (Exception $e) {
     echo "taskman aborted!\n", $e->getMessage(), "\n";
