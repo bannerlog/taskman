@@ -40,8 +40,8 @@ if (function_exists('ini_set')) {
 try {
     echo "(in " . findTaskfile(getcwd()) .")\n";
 
-    $arg = $argc > 1 ? array_keys(getopt($options, $longopts)) : null;
-    switch ($arg) {
+    $opts = array_keys(getopt($options, $longopts));
+    switch (!empty($opts) ? $opts[0] : null) {
         case 'version':
             echo "This is Taskman\n";
             break;
