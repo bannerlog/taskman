@@ -4,3 +4,5 @@
 .settings/
 nbproject/
 .idea/
+*.swp
+taskman.phar
