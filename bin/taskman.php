@@ -57,7 +57,8 @@ try {
             break;
         default:
             Taskman\Manager::getInstance()->invoke(
-                empty($argv[1]) ? 'default' : $argv[1]
+                empty($argv[1]) ? 'default' : $argv[1],
+                array_slice($argv, 2)
             );
     }
 } catch (Exception $e) {

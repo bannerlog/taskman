@@ -24,6 +24,10 @@ class Manager
 
     public function addTask($name, $job, $dependencies = null)
     {
+        if (!is_callable($job)) {
+            throw new \Exception("Task $name job is not callable");
+        }
+
         $scope = $this->scope;
         array_push($scope, $name);
         $this->tasks[implode(':', $scope)] = new Task(
@@ -40,7 +44,7 @@ class Manager
         return $this->tasks;
     }
 
-    public function invoke($name)
+    public function invoke($name, array $args = [])
     {
         if (! isset($this->tasks[$name])) {
             throw new \Exception("Task '$name' not found");
@@ -51,10 +55,10 @@ class Manager
             if (strpos($dependency, ':') === 0) {
                 $dependency = substr($name, 0, strrpos($name, ":")) . $dependency;
             }
-            $this->invoke($dependency);
+            $this->invoke($dependency, $args);
         }
 
-        $task->run();
+        $task->run($args);
     }
 
     public function setDescription($desciption)

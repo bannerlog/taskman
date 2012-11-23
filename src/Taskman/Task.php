@@ -19,11 +19,9 @@ class Task
         return $this->dependencies;
     }
 
-    public function run()
+    public function run(array $args = [])
     {
-        if (is_callable($this->job)) {
-            call_user_func($this->job);
-        }
+        call_user_func_array($this->job, $args);
     }
 
     public function __toString()
