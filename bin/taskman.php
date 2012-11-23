@@ -3,12 +3,6 @@
 
 require_once __DIR__ .'/../src/bootstrap.php';
 
-$options = 'T';
-$longopts = [
-    'tasks',
-    'version'
-];
-
 error_reporting(-1);
 
 if (function_exists('ini_set')) {
@@ -40,13 +34,12 @@ if (function_exists('ini_set')) {
 try {
     echo "(in " . findTaskfile(getcwd()) .")\n";
 
-    $opts = array_keys(getopt($options, $longopts));
-    switch (!empty($opts) ? $opts[0] : null) {
-        case 'version':
+    switch (isset($argv[1]) ? $argv[1] : null) {
+        case '--version':
             echo "This is Taskman\n";
             break;
-        case 'T':
-        case 'tasks':
+        case '-T':
+        case '--tasks':
             $tasks = Taskman\Manager::getInstance()->tasks();
             ksort($tasks);
             $max = max(array_map('strlen', array_keys($tasks)));
