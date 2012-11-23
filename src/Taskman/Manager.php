@@ -53,7 +53,16 @@ class Manager
         $task = $this->tasks[$name];
         foreach ($task->getDependencies() as $dependency) {
             if (strpos($dependency, ':') === 0) {
-                $dependency = substr($name, 0, strrpos($name, ":")) . $dependency;
+                if (strrpos($name, ':') > 0) {
+                    $dependency = substr($name, 0, strrpos($name, ":")) . $dependency;
+                } else {
+                    $dependency = substr($dependency, 1);
+                }
+            } elseif (strpos($dependency, '^') === 0) {
+                preg_match('/^(\^*)(.*)/', $dependency, $matches);
+                $dependency = array_slice(explode(':', $name), 0, (strlen($matches[1])+1) * -1);
+                $dependency[] = $matches[2];
+                $dependency = implode(':', $dependency);
             }
             $this->invoke($dependency, $args);
         }
