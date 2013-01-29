@@ -1,6 +1,6 @@
 {
     "name": "taskman",
-    "version": "0.3",
+    "version": "0.4",
     "license": "BSD",
     "type": "library",
     "homepage": "https://github.com/bannerlog/taskman",

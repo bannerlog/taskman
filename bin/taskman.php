@@ -7,34 +7,37 @@ error_reporting(-1);
 
 if (function_exists('ini_set')) {
     @ini_set('display_errors', 1);
-
-    $memoryInBytes = function ($value) {
-        $unit = strtolower(substr($value, -1, 1));
-        $value = (int)$value;
-        switch ($unit) {
-            case 'g':
-                $value *= 1024;
-            case 'm':
-                $value *= 1024;
-            case 'k':
-                $value *= 1024;
-        }
-
-        return $value;
-    };
-
-    $memoryLimit = trim(ini_get('memory_limit'));
-    // Increase memory_limit if it is lower than 512M
-    if ($memoryLimit != -1 && $memoryInBytes($memoryLimit) < 512 * 1024 * 1024) {
-        @ini_set('memory_limit', '512M');
-    }
-    unset($memoryInBytes, $memoryLimit);
 }
 
 try {
-    echo "(in " . findTaskfile(getcwd()) .")\n";
+    $taskfile = isset($argv[1]) && $argv[1] == '-f';
 
-    switch (isset($argv[1]) ? $argv[1] : null) {
+    if ($taskfile) {
+        $cmd = isset($argv[3]) ? $argv[3] : null;
+        $taskArgs = array_slice($argv, 4);
+    } else {
+        $cmd = isset($argv[1]) ? $argv[1] : null;
+        $taskArgs = array_slice($argv, 2);
+    }
+
+    if ($taskfile && !empty($argv[2])) {
+        if (!is_readable($argv[2])) {
+            abortTaskman("No Taskfile found (looking for: {$argv[2]})");
+        }
+
+        if (is_file($argv[2])) {
+            $taskfile = $argv[2];
+            require $argv[2];
+        } else {
+            $taskfile = findTaskfile($argv[2]);
+        }
+    } else {
+        $taskfile = findTaskfile(getcwd());
+    }
+
+    echo "(in $taskfile)\n";
+
+    switch ($cmd) {
         case '--version':
             echo "This is Taskman v". Taskman\VERSION ."\n";
             break;
@@ -50,8 +53,8 @@ try {
             break;
         default:
             Taskman\Manager::getInstance()->invoke(
-                empty($argv[1]) ? 'default' : $argv[1],
-                array_slice($argv, 2)
+                empty($cmd) ? 'default' : $cmd,
+                $taskArgs
             );
     }
 } catch (Exception $e) {

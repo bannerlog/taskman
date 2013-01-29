@@ -23,11 +23,18 @@ function findTaskfile($dir)
         }
 
         if ($dir == '/') {
-            echo "taskman aborted!\n";
-            echo "No Taskfile found (looking for: ". implode(', ', $taksFiles) .")\n";
-            exit;
+            abortTaskman("No Taskfile found (looking for: ". implode(', ', $taksFiles) .")");
         }
 
         $dir = dirname($dir);
     }
+}
+
+function abortTaskman($message = '')
+{
+    echo "taskman aborted!\n";
+    if (empty($$message)) {
+        echo "$message\n";
+    }
+    exit(1);
 }
