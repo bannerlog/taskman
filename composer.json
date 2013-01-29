@@ -1,0 +1,8 @@
+{
+    "name": "taskman",
+    "version": "0.1",
+    "autoload": {
+        "psr-0": { "Taskman": "src" }
+    },
+    "bin": ["bin/taskman.php"]
+}
