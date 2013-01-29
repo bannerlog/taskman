@@ -1,6 +1,8 @@
 <?php
 namespace Taskman;
 
+const VERSION = '0.3';
+
 class Manager
 {
     private static $instance;
@@ -80,8 +82,8 @@ class Manager
         $this->scope[] = $name;
     }
 
-    public function clearScope()
+    public function popScope()
     {
-        $this->scope = [];
+        array_pop($this->scope);
     }
 }

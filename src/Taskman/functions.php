@@ -20,5 +20,5 @@ function group($name, Closure $context)
 {
     Taskman\Manager::getInstance()->buildScope($name);
     $context();
-    Taskman\Manager::getInstance()->clearScope();
+    Taskman\Manager::getInstance()->popScope();
 }

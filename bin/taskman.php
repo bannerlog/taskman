@@ -36,7 +36,7 @@ try {
 
     switch (isset($argv[1]) ? $argv[1] : null) {
         case '--version':
-            echo "This is Taskman\n";
+            echo "This is Taskman v". Taskman\VERSION ."\n";
             break;
         case '-T':
         case '--tasks':
