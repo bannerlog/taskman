@@ -58,5 +58,5 @@ try {
             );
     }
 } catch (Exception $e) {
-    echo "taskman aborted!\n", $e->getMessage(), "\n";
+    abortTaskman($e->getMessage());
 }
