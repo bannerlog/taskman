@@ -1,17 +1,17 @@
 {
     "name": "bannerlog/taskman",
-    "version": "0.4.0",
-    "license": "BSD",
+    "description": "Taskman is the another *ake tool written on PHP",
+    "license": "BSD-3-Clause",
     "type": "library",
     "homepage": "https://github.com/bannerlog/taskman",
     "authors": [{
         "name": "Nick Lastovenko",
         "email": "bannerlog@gmail.com"
     }],
-    "support": [{
+    "support": {
         "source": "https://github.com/bannerlog/taskman",
         "issues": "https://github.com/bannerlog/taskman/issues"
-    }],
+    },
     "autoload": {
         "psr-0": { "Taskman": "src" }
     },

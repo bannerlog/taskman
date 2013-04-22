@@ -1,7 +1,40 @@
 # Taskman
 Taskman is the another *ake tool written on PHP. Use it as you wish.
 
-## How to use
+## Install & Run
+The fastest way to install Taskman in your project is using Composer (http://getcomposer.org/).
+
+1. Install composer:
+
+    ```    
+    curl -s https://getcomposer.org/installer | php
+    ```
+    
+1. Add Taskman as a dependency to your `composer.json` file:
+
+    ```js
+    {
+        "require": {
+            "bannerlog/taskman": "*"
+        }
+    }
+    ```
+    
+1. Install Taskman:
+    
+    ```
+    php composer.phar install
+    ```
+    
+1. Execute Taskman:
+    
+    ```
+    php vendor/bin/taskman.php -T
+    ```
+
+
+
+## How to create task
 First you need to create the task file. It could be named as:
 * Taskman
 * taskman
