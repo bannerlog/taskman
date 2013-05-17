@@ -3,6 +3,7 @@
 require_once __DIR__ . '/Taskman/functions.php';
 require_once __DIR__ . '/Taskman/Manager.php';
 require_once __DIR__ . '/Taskman/Task.php';
+require_once __DIR__ . '/Taskman/Args.php';
 
 function findTaskfile($dir)
 {
@@ -18,6 +19,7 @@ function findTaskfile($dir)
             $file = $dir . DIRECTORY_SEPARATOR . $taskFile;
             if (is_readable($file)) {
                 require $file;
+
                 return $file;
             }
         }
@@ -33,8 +35,11 @@ function findTaskfile($dir)
 function abortTaskman($message = '')
 {
     echo "taskman aborted!\n";
-    if (empty($$message)) {
-        echo "$message\n";
-    }
-    exit(1);
+    exitMessage($message, 1);
+}
+
+function exitMessage($message, $s = 0)
+{
+    echo "$message\n";
+    exit($s);
 }
